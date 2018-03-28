@@ -7,9 +7,12 @@ var sceneMap = {
 
 var numberOfCards;
 var deck;
+var matchCount = 0;
+
 var appState = {
   options: {numberOfCards},
-  gameState: {deck}
+  gameState: {deck},
+  matching: {matchCount}
 };
 
 var canvasSize = {width : 800, height: 600};

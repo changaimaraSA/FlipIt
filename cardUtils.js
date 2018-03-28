@@ -24,7 +24,7 @@ function makeCardFull(face, faceUp, id, matched){
 }
 
 function makeCard(face, id){
-    return {face: face, faceUp: false, id: id, matched: false};
+    return {face: face, faceUp: true, id: id, matched: false};
 }
 
 function makeDeck(number){
