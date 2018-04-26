@@ -3,10 +3,11 @@ finishScreen.firstFrame = true;
 finishScreen.screenText = 'Game Finished!';
 
 finishScreen.setup = function(){
-
+    
 }
 
 finishScreen.draw = function(){
+    sortScoreBoard();
     push();
     background('lightblue');
     textAlign(CENTER);
@@ -14,6 +15,12 @@ finishScreen.draw = function(){
     text(finishScreen.screenText,width/2,50);
     textSize(35);
     text('click anywhere to start again',width/2,height/2);
+    pop();
+    push();
+    textSize(20);
+    for(var i = 0; i<scores.length; i++){
+        text(i+1 + 'Place:' + scores[i],width/2,100+40*i);
+    }
     pop();
 }
 

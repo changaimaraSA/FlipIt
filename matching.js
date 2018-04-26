@@ -33,6 +33,7 @@ var findMatch = function(){
     }
   }
   if(appState.matching.matchCount === 8){
+    scores.push(toatlTrial);
     setTimeout(function(){appState.currentScene = 'finishScreen'},1000);
   }
 }
