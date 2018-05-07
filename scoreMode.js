@@ -1,32 +1,37 @@
-var inGame = {}
+var scoreMode = {}
 var cardsPerRow;
 var cardSize;
 
-inGame.firstFrame = true;
+var inGameInterval;
+var timerValue = 0;
 
-inGame.screenText = 'Scene: inGame!'
+scoreMode.firstFrame = true;
 
-inGame.setup = function(){
+scoreMode.screenText = 'Score mode value both time and accuracy.'
+
+scoreMode.setup = function(){
   cardsPerRow = getTheme(appState).cardsPerRow;
   cardSize = getTheme(appState).cardDimentions;
-  console.log('inGame setup function');
   appState.gameState.deck = makeDeck(appState.options.numberOfCards);
   shuffle(appState.gameState.deck, true);
 }
 
-inGame.draw = function(){
-  push();
+scoreMode.draw = function(){
   background('darkorange');
-  textAlign(CENTER);
-  textSize(60);
-  //text(inGame. screenText, width/2, height/2);
-  pop();
-
-  text('total trial:'+' '+ toatlTrial,400,50);
-
-  //drawLable(mouseX, mouseY);
+  
+  text('total trial:'+' '+ totalTrial,400,50);
+  text(Math.floor(timerValue/10),400,400);
 
   drawDeck(appState.gameState.deck, 0, 0, cardLayout, appState.options.theme.layout.cardsPerRow, appState.options.theme.layout.spacing);  
+
+  push();
+  textAlign(CENTER);
+  textSize(8);
+  if(firstClick){
+    text(scoreMode.screenText, width/2+170, height/2);
+  }
+  pop();
+
 }
 
 clickToFlip = function(mouseX, mouseY, cardsPerRow, cardSize, deckSize, cardArray, spacing){
@@ -68,13 +73,16 @@ getCords = function(mouseX, mouseY, cardsPerRow, cardSize, spacing, deckSize){
   return cords;
 }
 
-inGame.mousePressed = function(){
-  appState.currentScene = 'inGame2';
+scoreMode.mousePressed = function(){
+  if(firstClick === true){
+    startInGameTimer();
+  }
   clickToFlip(mouseX, mouseY, appState.options.theme.layout.cardsPerRow, appState.options.theme.cards.dimensions, appState.options.numberOfCards, appState.gameState.deck, appState.options.theme.layout.spacing);
   clickToIndex(mouseX, mouseY, appState.options.theme.layout.cardsPerRow, appState.options.theme.cards.dimensions, appState.options.numberOfCards, appState.gameState.deck, appState.options.theme.layout.spacing);
   findMatch();
+  firstClick = false;
 }
 
-inGame.keyPressed = function(){
+scoreMode.keyPressed = function(){
   
 }

@@ -1,10 +1,13 @@
-var scores = [85,15,15,20,24,42];
-
+var scores = [];
+var inGameTime = [];
 function compareNumbers(a,b){
-    return a - b;
+    return b - a;
 }
 
 function sortScoreBoard(){
-    scores.sort(compareNumbers)
+    scores.sort(compareNumbers);
 }
 
+function scoreCalc() {
+    return (100000/timerValue)*(8/totalTrial);
+}
