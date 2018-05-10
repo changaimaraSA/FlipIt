@@ -1,7 +1,7 @@
 var sceneMap = {
-  "inGame" : inGame,
-  "inGame2": inGame2,
-  "finishScreen": finishScreen
+  "finishScreen": finishScreen,
+  'timerScreen': timerScreen,
+  'scoreMode': scoreMode
 }
 
 var mode = "dev"
@@ -10,7 +10,6 @@ var matchCount = 0;
 var appState = {
   options : {},
   gameState : {},
-  matching: {matchCount}
 };
 
 var canvasSize = {width : 500, height: 500};
