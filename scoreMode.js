@@ -3,13 +3,22 @@ var cardsPerRow;
 var cardSize;
 
 var inGameInterval;
-var timerValue = 0;
 
 scoreMode.firstFrame = true;
 
 scoreMode.screenText = 'Score mode value both time and accuracy.'
 
 scoreMode.setup = function(){
+  appState.gameState.matchMaking = {
+    matching : [],
+    matchCount: 0,
+    totalTrial: 0
+  };
+  appState.gameState.score = {
+    timerValue: 0,
+    scores: []
+  };
+
   cardsPerRow = getTheme(appState).cardsPerRow;
   cardSize = getTheme(appState).cardDimentions;
   appState.gameState.deck = makeDeck(appState.options.numberOfCards);
@@ -19,8 +28,8 @@ scoreMode.setup = function(){
 scoreMode.draw = function(){
   background('darkorange');
   
-  text('total trial:'+' '+ totalTrial,400,50);
-  text(Math.floor(timerValue/10),400,400);
+  text('total trial:'+' '+ appState.gameState.matchMaking.totalTrial,400,50);
+  text(Math.floor(appState.gameState.score.timerValue/10),400,400);
 
   drawDeck(appState.gameState.deck, 0, 0, cardLayout, appState.options.theme.layout.cardsPerRow, appState.options.theme.layout.spacing);  
 
@@ -52,14 +61,13 @@ clickToFlip = function(mouseX, mouseY, cardsPerRow, cardSize, deckSize, cardArra
 clickToIndex = function(mouseX, mouseY, cardsPerRow, cardSize, deckSize, cardArray, spacing){
   var cords = getCords(mouseX, mouseY, cardsPerRow, cardSize, spacing, deckSize);
   var index = cords[0] + cardsPerRow*cords[1];
-  matching.push({card: cardArray[index], index: index});
+  appState.gameState.matchMaking.matching.push({card: cardArray[index], index: index});
   return index;
 }
 
 
 getCords = function(mouseX, mouseY, cardsPerRow, cardSize, spacing, deckSize){
   var cords = [];
-  //console.log(arguments)
   for(var i = 0; i < cardsPerRow; i++){
     if(cardSize.width * i + spacing.horizontal + spacing.horizontal * i < mouseX && mouseX < cardSize.width * i + cardSize.width + spacing.horizontal + spacing.horizontal * i){
       cords.push(i);
@@ -79,7 +87,7 @@ scoreMode.mousePressed = function(){
   }
   clickToFlip(mouseX, mouseY, appState.options.theme.layout.cardsPerRow, appState.options.theme.cards.dimensions, appState.options.numberOfCards, appState.gameState.deck, appState.options.theme.layout.spacing);
   clickToIndex(mouseX, mouseY, appState.options.theme.layout.cardsPerRow, appState.options.theme.cards.dimensions, appState.options.numberOfCards, appState.gameState.deck, appState.options.theme.layout.spacing);
-  findMatch();
+  findMatch(appState.gameState.matchMaking);
   firstClick = false;
 }
 

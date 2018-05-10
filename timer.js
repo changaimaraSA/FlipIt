@@ -55,7 +55,7 @@ function startTimer(){
 function startInGameTimer(){
     inGameInterval = setInterval(function(){
          if(appState.currentScene === 'scoreMode'){
-            timerValue++;
+            appState.gameState.score.timerValue++;
          }
     },100)
 }

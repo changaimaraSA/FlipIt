@@ -10,7 +10,6 @@ var matchCount = 0;
 var appState = {
   options : {},
   gameState : {},
-  matching: {matchCount}
 };
 
 var canvasSize = {width : 500, height: 500};

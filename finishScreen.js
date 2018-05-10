@@ -31,10 +31,8 @@ finishScreen.draw = function(){
     push();
     textAlign(CENTER);
     textSize(20);
-    for(var i = 0; i<scores.length; i++){
-        text(placeName[i] + scores[i] 
-            //+ ' '+ 'Score:' + Math.round(scoreCalc(i))
-            ,width/2 , 100 + 40 * i );
+    for(var i = 0; i<appState.gameState.score.scores.length; i++){
+        text(placeName[i] + appState.gameState.score.scores[i], width/2, 100 + 40 * i );
     }
     pop();
 }
@@ -49,14 +47,14 @@ finishScreen.keyPressed = function(){
 
 function restart() {
     appState.currentScene = 'scoreMode';
-    appState.matching.matchCount = 0;
-    totalTrial = 0;
-    timerValue = 0;
+    appState.gameState.matchMaking.matchCount = 0;
+    appState.gameState.matchMaking.totalTrial = 0;
+    appState.gameState.score.timerValue = 0;
     clearInterval(inGameInterval);
     firstClick = true;
-    console.log('reset matchCount to' + appState.matching.matchCount);
-    console.log('reset totalTrial to' + totalTrial);
-    console.log('reset timer to' + timerValue);
+    console.log('reset matchCount to' + appState.gameState.matchMaking.matchCount);
+    console.log('reset totalTrial to' + appState.gameState.matchMaking.totalTrial);
+    console.log('reset timer to' + appState.gameState.score.timerValue);
     appState.gameState.deck = makeDeck(appState.options.numberOfCards);
     shuffle(appState.gameState.deck, true);
 }
